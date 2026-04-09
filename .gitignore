@@ -1,0 +1,7 @@
+data/raw/
+data/processed/hm_clean.parquet
+data/processed/inst_clean.parquet
+__pycache__/
+*.pyc
+.streamlit/
+*.xlsx
