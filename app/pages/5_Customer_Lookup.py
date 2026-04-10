@@ -61,13 +61,11 @@ recommendations = {
                          "from paid campaigns. Protect sender reputation.",
 }
 
-# ── Dataset selector ──────────────────────────────────────────────────────────
 source = st.selectbox("Select dataset", SOURCES, key="lookup_source")
 df     = load_rfm(source)
 curr   = CURRENCY_LABEL[source]
 labels = CLUSTER_LABELS[source]
 
-# ── Session state initialisation ──────────────────────────────────────────────
 if "lookup_seed" not in st.session_state:
     st.session_state.lookup_seed = 42
 if "active_customer" not in st.session_state:
@@ -75,12 +73,10 @@ if "active_customer" not in st.session_state:
 if "prev_source" not in st.session_state:
     st.session_state.prev_source = source
 
-# Reset active customer when dataset changes
 if st.session_state.prev_source != source:
     st.session_state.active_customer = None
     st.session_state.prev_source = source
 
-# ── Sample tools ──────────────────────────────────────────────────────────────
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
 st.markdown('<span class="chapter">Choose a Customer</span>',
             unsafe_allow_html=True)
@@ -111,13 +107,10 @@ with col2:
 
 with col3:
     if st.button("Shuffle Sample", use_container_width=True):
-        st.session_state.lookup_seed = int(
-            np.random.randint(0, 99999)
-        )
+        st.session_state.lookup_seed = int(np.random.randint(0, 99999))
         st.session_state.active_customer = None
         st.rerun()
 
-# ── Profile render ────────────────────────────────────────────────────────────
 if not st.session_state.active_customer:
     st.markdown("""
     <div class="card-mist" style="text-align:center; padding:2rem;
@@ -149,13 +142,14 @@ if match.empty:
     prev_next_nav("Customer Lookup")
     st.stop()
 
-row     = match.iloc[0]
-segment = row["cluster_label"]
-meta    = labels.get(segment, {"badge": "badge-loyal"})
-color   = SEGMENT_COLORS.get(segment, "#4A6FA5")
-rec     = recommendations.get(segment, "No recommendation available.")
-mon_disp = (f"\u00a3{row['monetary']:,.2f}" if curr != "items"
-            else f"{row['monetary']:,.0f} items")
+row      = match.iloc[0]
+segment  = row["cluster_label"]
+meta     = labels.get(segment, {"badge": "badge-loyal"})
+color    = SEGMENT_COLORS.get(segment, "#4A6FA5")
+rec      = recommendations.get(segment, "No recommendation available.")
+monetary = row["monetary"]
+mon_disp = (f"\u00a3{monetary:,.2f}" if curr != "items"
+            else f"{monetary:,.0f} items")
 
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
 
@@ -164,8 +158,8 @@ st.markdown(f"""
     <div style="display:flex; align-items:center; gap:1rem;
                 margin-bottom:1rem; flex-wrap:wrap;">
         <div>
-            <div style="font-family:'DM Serif Display',serif;
-                        font-size:1.3rem; color:#1B3A5C;">
+            <div style="font-family:'DM Serif Display',serif; font-size:1.3rem;
+                        color:#1B3A5C;">
                 Customer {row['customer_id']}
             </div>
             <div style="margin-top:0.3rem;">
@@ -220,7 +214,6 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
-# ── RFM gauge ─────────────────────────────────────────────────────────────────
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
 st.markdown('<span class="chapter">RFM Score Breakdown</span>',
             unsafe_allow_html=True)
@@ -228,9 +221,10 @@ st.markdown('<span class="chapter">RFM Score Breakdown</span>',
 col_gauge, col_context = st.columns([1, 1.5])
 
 with col_gauge:
+    rfm_score = row["rfm_score"]
     fig_gauge = go.Figure(go.Indicator(
         mode="gauge+number",
-        value=row["rfm_score"],
+        value=rfm_score,
         number=dict(font=dict(size=36, family="DM Serif Display",
                               color="#1B3A5C")),
         gauge=dict(
@@ -248,7 +242,7 @@ with col_gauge:
             threshold=dict(
                 line=dict(color=color, width=3),
                 thickness=0.8,
-                value=row["rfm_score"]
+                value=rfm_score
             ),
         ),
         title=dict(
@@ -273,7 +267,7 @@ with col_context:
     ]
     st.markdown("<div style='padding-top:1rem;'>", unsafe_allow_html=True)
     for lo, hi, col_hex, label, desc in score_bands:
-        active = lo <= row["rfm_score"] <= hi
+        active = lo <= rfm_score <= hi
         bg     = "#fff"      if active else "#F7F9FC"
         border = (f"2px solid {col_hex}" if active
                   else "1px solid #DDE3EE")

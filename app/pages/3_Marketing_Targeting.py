@@ -4,6 +4,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from components.data_loader import load_rfm, SOURCES, CLUSTER_LABELS, CURRENCY_LABEL
 from components.styles import apply_styles, sidebar_header, nav_bar, prev_next_nav
+
 st.set_page_config(
     page_title="Marketing Targeting - Retail Intelligence",
     page_icon="R",
@@ -171,14 +172,14 @@ strategies = {
 
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
 
-seg_df   = df[df["cluster_label"] == segment]
-n        = len(seg_df)
-pct      = n / len(df) * 100
-recency  = seg_df["recency"].mean()
-freq     = seg_df["frequency"].mean()
-monetary = seg_df["monetary"].mean()
-mon_disp = (f"\u00a3{row['monetary']:,.2f}" if curr != "items"
-            else f"{monetary:,.0f} items")
+seg_df      = df[df["cluster_label"] == segment]
+n           = len(seg_df)
+pct         = n / len(df) * 100
+recency     = seg_df["recency"].mean()
+freq        = seg_df["frequency"].mean()
+monetary    = seg_df["monetary"].mean()
+mon_disp    = (f"\u00a3{monetary:,.0f}" if curr != "items"
+               else f"{monetary:,.0f} items")
 
 st.markdown(f"""
 <div class="card" style="display:flex; align-items:center;

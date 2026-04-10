@@ -7,6 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from components.data_loader import (load_rfm, SOURCES, CLUSTER_LABELS,
                                     SEGMENT_COLORS, CURRENCY_LABEL)
 from components.styles import apply_styles, sidebar_header, nav_bar, prev_next_nav
+
 st.set_page_config(
     page_title="Segment Explorer - Retail Intelligence",
     page_icon="R",
@@ -171,12 +172,14 @@ segment_descriptions = {
 for tier in tier_order:
     if tier not in seg_detail.index:
         continue
-    row  = seg_detail.loc[tier]
-    meta = labels[tier]
-    desc = segment_descriptions.get(tier, "")
-    pct  = row["customers"] / len(df) * 100
-    mon_label = (f"\u00a3{row['monetary']:,.2f}"
-                 if curr != "items" else f"{row['avg_mon']:,.0f} items")
+    row      = seg_detail.loc[tier]
+    meta     = labels[tier]
+    desc     = segment_descriptions.get(tier, "")
+    pct      = row["customers"] / len(df) * 100
+    avg_mon  = row["avg_mon"]
+    mon_label = (f"\u00a3{avg_mon:,.0f}"
+                 if curr != "items" else f"{avg_mon:,.0f} items")
+
     st.markdown(f"""
     <div class="card" style="margin-bottom:0.75rem;">
         <div style="display:flex; align-items:center; gap:0.75rem;

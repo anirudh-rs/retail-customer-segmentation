@@ -6,6 +6,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from components.data_loader import load_rfm, SOURCES, CURRENCY_LABEL
 from components.styles import apply_styles, sidebar_header, nav_bar, prev_next_nav
+
 st.set_page_config(
     page_title="Churn Risk Report - Retail Intelligence",
     page_icon="R",
@@ -71,6 +72,8 @@ avg_spend      = at_risk["monetary"].mean() if total_at_risk > 0 else 0
 avg_recency    = at_risk["recency"].mean()  if total_at_risk > 0 else 0
 potential_loss = at_risk["monetary"].sum()
 
+curr_sym = "\u00a3" if curr != "items" else ""
+
 st.markdown(f"""
 <div class="kpi-grid">
     <div class="kpi-tile">
@@ -84,12 +87,12 @@ st.markdown(f"""
         <div class="kpi-sub">Since last purchase</div>
     </div>
     <div class="kpi-tile">
-        <div class="kpi-value">{avg_spend:,.0f}</div>
+        <div class="kpi-value">{curr_sym}{avg_spend:,.0f}</div>
         <div class="kpi-label">Avg Historical Spend</div>
         <div class="kpi-sub">Per flagged customer</div>
     </div>
     <div class="kpi-tile">
-        <div class="kpi-value" style="color:#C0392B;">{potential_loss:,.0f}</div>
+        <div class="kpi-value" style="color:#C0392B;">{curr_sym}{potential_loss:,.0f}</div>
         <div class="kpi-label">Revenue at Risk</div>
         <div class="kpi-sub">Combined spend of flagged customers</div>
     </div>
