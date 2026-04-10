@@ -348,18 +348,18 @@ def sidebar_header(current_page="Home"):
 
 def nav_bar(current_page):
     pages = [
-        ("Home",      "Home"),
-        ("Data",      "pages/1_Data_Overview"),
-        ("Segments",  "pages/2_Segment_Explorer"),
-        ("Targeting", "pages/3_Marketing_Targeting"),
-        ("Churn",     "pages/4_Churn_Report"),
-        ("Lookup",    "pages/5_Customer_Lookup"),
+        ("Home",      "app.py"),
+        ("Data",      "pages/1_Data_Overview.py"),
+        ("Segments",  "pages/2_Segment_Explorer.py"),
+        ("Targeting", "pages/3_Marketing_Targeting.py"),
+        ("Churn",     "pages/4_Churn_Report.py"),
+        ("Lookup",    "pages/5_Customer_Lookup.py"),
     ]
     cols = st.columns(len(pages))
     for col, (label, page) in zip(cols, pages):
         with col:
             st.page_link(
-                f"{page}.py",
+                page,
                 label=label,
                 use_container_width=True
             )
@@ -367,12 +367,12 @@ def nav_bar(current_page):
 
 def prev_next_nav(current_page):
     pages = [
-        ("Home",               "Home"),
-        ("Data Overview",      "pages/1_Data_Overview"),
-        ("Segment Explorer",   "pages/2_Segment_Explorer"),
-        ("Marketing Targeting","pages/3_Marketing_Targeting"),
-        ("Churn Risk Report",  "pages/4_Churn_Report"),
-        ("Customer Lookup",    "pages/5_Customer_Lookup"),
+        ("Home",               "app.py"),
+        ("Data Overview",      "pages/1_Data_Overview.py"),
+        ("Segment Explorer",   "pages/2_Segment_Explorer.py"),
+        ("Marketing Targeting","pages/3_Marketing_Targeting.py"),
+        ("Churn Risk Report",  "pages/4_Churn_Report.py"),
+        ("Customer Lookup",    "pages/5_Customer_Lookup.py"),
     ]
 
     current_idx = next(
@@ -389,7 +389,7 @@ def prev_next_nav(current_page):
             prev_label, prev_page = pages[current_idx - 1]
             prev_short = prev_label.split()[0]
             st.page_link(
-                f"{prev_page}.py",
+                prev_page,
                 label=f"Back: {prev_short}",
                 use_container_width=True
             )
@@ -407,7 +407,7 @@ def prev_next_nav(current_page):
             next_label, next_page = pages[current_idx + 1]
             next_short = next_label.split()[0]
             st.page_link(
-                f"{next_page}.py",
+                next_page,
                 label=f"Next: {next_short}",
                 use_container_width=True
             )
