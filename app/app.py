@@ -5,6 +5,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import streamlit as st
 import sys
 import os
+
+home_page = st.Page("app.py", title="Home", icon=None, default=True)
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from components.data_loader import load_rfm, SOURCES
 from components.styles import apply_styles, sidebar_header, nav_bar, prev_next_nav
@@ -14,6 +16,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+st.title("")
 
 apply_styles()
 sidebar_header("Home")
@@ -188,10 +191,9 @@ with col_b:
 
 st.markdown("""
 <div class="insight">
-    Use the navigation bar above or the sidebar to move between chapters.
-    Start with <strong>Data Overview</strong> to understand what was
-    built, or jump to <strong>Segment Explorer</strong> to see the
-    results.
+    Use the navigation bar above to move between chapters.
+    Start with <strong>Data Overview</strong> to understand what was built,
+    or jump to <strong>Segment Explorer</strong> to see the results.
 </div>
 """, unsafe_allow_html=True)
 
