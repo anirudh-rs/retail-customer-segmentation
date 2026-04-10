@@ -127,7 +127,7 @@ SEGMENT_COLORS = {
 }
 
 CURRENCY_LABEL = {
-    "UCI Online Retail": "GBP",
-    "H&M Fashion":       "GBP",
+    "UCI Online Retail": "\u00a3",
+    "H&M Fashion":       "\u00a3",
     "Instacart Grocery": "items",
 }
