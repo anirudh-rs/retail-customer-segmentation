@@ -6,3 +6,4 @@ streamlit
 huggingface_hub
 openpyxl
 pyarrow
+gdown
