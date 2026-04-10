@@ -175,7 +175,7 @@ for tier in tier_order:
     meta = labels[tier]
     desc = segment_descriptions.get(tier, "")
     pct  = row["customers"] / len(df) * 100
-    mon_label = (f"GBP {row['avg_mon']:,.0f}"
+    mon_label = (f"\u00a3{row['monetary']:,.2f}"
                  if curr != "items" else f"{row['avg_mon']:,.0f} items")
     st.markdown(f"""
     <div class="card" style="margin-bottom:0.75rem;">

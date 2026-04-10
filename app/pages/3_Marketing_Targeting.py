@@ -177,7 +177,7 @@ pct      = n / len(df) * 100
 recency  = seg_df["recency"].mean()
 freq     = seg_df["frequency"].mean()
 monetary = seg_df["monetary"].mean()
-mon_disp = (f"GBP {monetary:,.0f}" if curr != "items"
+mon_disp = (f"\u00a3{row['monetary']:,.2f}" if curr != "items"
             else f"{monetary:,.0f} items")
 
 st.markdown(f"""

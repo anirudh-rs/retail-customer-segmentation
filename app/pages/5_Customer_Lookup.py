@@ -154,7 +154,7 @@ segment = row["cluster_label"]
 meta    = labels.get(segment, {"badge": "badge-loyal"})
 color   = SEGMENT_COLORS.get(segment, "#4A6FA5")
 rec     = recommendations.get(segment, "No recommendation available.")
-mon_disp = (f"GBP {row['monetary']:,.2f}" if curr != "items"
+mon_disp = (f"\u00a3{row['monetary']:,.2f}" if curr != "items"
             else f"{row['monetary']:,.0f} items")
 
 st.markdown('<hr class="section-divider"/>', unsafe_allow_html=True)
