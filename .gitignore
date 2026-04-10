@@ -1,6 +1,10 @@
 data/raw/
 data/processed/hm_clean.parquet
 data/processed/inst_clean.parquet
+data/processed/rfm_hm.parquet
+data/processed/rfm_hm_clustered.parquet
+upload_app.py
+upload_data.py
 __pycache__/
 *.pyc
 .streamlit/
