@@ -12,7 +12,7 @@ from components.styles import (apply_styles, sidebar_header,
 
 st.set_page_config(
     page_title="Customer Lookup - Retail Intelligence",
-    page_icon="R",
+    page_icon="🛍️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
