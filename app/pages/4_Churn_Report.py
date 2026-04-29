@@ -9,7 +9,7 @@ from components.styles import apply_styles, sidebar_header, nav_bar, prev_next_n
 
 st.set_page_config(
     page_title="Churn Risk Report - Retail Intelligence",
-    page_icon="R",
+    page_icon="🛍️",
     layout="wide",
     initial_sidebar_state="expanded"
 )
